@@ -8,6 +8,9 @@ import pandas as pd
 # Load environment variables from .env file
 load_dotenv()
 
+# Get the playlist link from the environment variable
+playlist_link = os.getenv("PLAYLIST_LINK", "")
+
 # Initialise Flask app
 app = Flask(__name__)
 
@@ -47,7 +50,7 @@ def spotify_webhook():
         artists = ", ".join(artist['name'] for artist in track['artists'])
         song_link = track['external_urls']['spotify']
 
-        message = f"New song added to the playlist:\nName: {name}\nArtist(s): {artists}\nLink: {song_link}"
+        message = f"New song added to the playlist:\nName: {name}\nArtist(s): {artists}\nLink: {song_link}\nPlaylist: {playlist_link}"
         # Post the message to the telegram channel
         send_message(message)
 
